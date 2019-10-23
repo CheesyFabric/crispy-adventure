@@ -1,0 +1,119 @@
+{% extends 'common/base.html' %}
+
+{% block title %}
+        注册
+{% endblock %}
+
+{% block head %}
+    <style>
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #303641;
+        color: #C1C3C6
+      }
+    </style>
+{% endblock %}
+
+{% block container %}
+
+    <div class="container">
+      <form class="form-signin" role="form" action="{{ url_for("stu.R") }}" method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <h3 class="form-signin-heading">欢迎注册</h3>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="glyphicon glyphicon-user"></i>
+            </div>
+            <input type="text" class="form-control" name="uname"  placeholder="姓名" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="glyphicon glyphicon-asterisk"></i>
+            </div>
+            <input type="text" class="form-control" name="nick_name"  placeholder="昵称" autocomplete="off" />
+          </div>
+        </div>
+
+
+          <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="glyphicon glyphicon-bookmark"></i>
+            </div>
+
+                <select name="role" class="form-control" data-selecter-options="{&quot;label&quot;:&quot;Jump Sites&quot;,&quot;external&quot;:&quot;true&quot;}" tabindex="-1">
+                        <option value="0">学生</option>
+                        <option value="1">教师</option>
+                        <option value="2">管理员</option>
+                      </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="glyphicon glyphicon-heart-empty"></i>
+            </div>
+
+                <select name="gender" class="form-control" data-selecter-options="{&quot;label&quot;:&quot;Jump Sites&quot;,&quot;external&quot;:&quot;true&quot;}" tabindex="-1">
+                        <option value="1">男</option>
+                        <option value="0">女</option>
+                      </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class=" glyphicon glyphicon-lock "></i>
+            </div>
+            <input type="password" class="form-control" name="password" id="password" placeholder="密码" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class=" glyphicon glyphicon-ok "></i>
+            </div>
+            <input type="password" class="form-control" name="confirm_password"  placeholder="确认密码" autocomplete="off" />
+          </div>
+        </div>
+
+
+          <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="glyphicon glyphicon-heart-empty"></i>
+            </div>
+
+                <select name="cid" class="form-control" data-selecter-options="{&quot;label&quot;:&quot;Jump Sites&quot;,&quot;external&quot;:&quot;true&quot;}" tabindex="-1">
+
+                    {% for c in clazzs %}
+                    <option value="{{ c.id }}">{{ c.name }}</option>
+                    {% endfor %}
+                      </select>
+          </div>
+        </div>
+
+
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> &nbsp Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+
+          <br><br>
+
+
+
+      </form>
+
+    </div>
+
+{% endblock %}

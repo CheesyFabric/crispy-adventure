@@ -1,0 +1,60 @@
+{% extends 'common/base.html' %}
+
+{% block title %}
+        登录
+{% endblock %}
+
+{% block head %}
+    <style>
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #303641;
+        color: #C1C3C6
+      }
+    </style>
+{% endblock %}
+
+{% block container %}
+
+    <div class="container">
+      <form class="form-signin" role="form" action="{{ url_for("stu.login") }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <h3 class="form-signin-heading">欢迎登录</h3>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="glyphicon glyphicon-user"></i>
+            </div>
+            <input type="text" class="form-control" name="uname" id="username" placeholder="Username" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class=" glyphicon glyphicon-lock "></i>
+            </div>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off" />
+          </div>
+        </div>
+
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> &nbsp Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+
+          <br><br>
+
+          {% if msg %}
+        <div class="alert alert-info alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <strong>请重新输入!</strong> {{ msg }}
+                          </div>
+          {% endif %}
+
+      </form>
+
+    </div>
+
+{% endblock %}
