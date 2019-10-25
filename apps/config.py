@@ -4,7 +4,7 @@ DRIVER = 'pymysql'
 HOSTNAME = '127.0.0.1'
 PORT = '3306'
 USERNAME = 'root'
-PASSWORD = '123456'
+PASSWORD = ''
 DATABASE = 'brandnew_project'
 
 DB_URI="{}+{}://{}:{}@{}:{}/{}?charset=utf8mb4".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOSTNAME,

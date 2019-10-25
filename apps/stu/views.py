@@ -55,7 +55,7 @@ class Regsiter(views.MethodView):
         confirm_password = request.form["confirm_password"]
         # print("{},{},{},{},{},{}".format(uname,nick_name,role,gender,password,confirm_password))
 
-        cid = request.form["cid"]
+        cid = request.form.get("cid")
         # 把数据存到数据库里
         user = User(uname, nick_name, role, gender, password, confirm_password)
         user.clazzs = Clazz.query.filter_by(id=cid).all()

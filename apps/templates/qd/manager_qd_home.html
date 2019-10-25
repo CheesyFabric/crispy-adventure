@@ -1,0 +1,76 @@
+{% extends 'common/index_base.html' %}
+
+{% block title %}签到主页{% endblock %}
+
+{% block head %}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+{% endblock %}
+
+{% block panel_title %}签到主页{% endblock %}
+
+{% block panel_body %}
+
+        <div class="content-row">
+
+
+                    <div class="col-md-3">
+                      <input class="form-control input-lg" type="text" placeholder="班级">
+                    </div>
+                    <div class="col-md-3">
+                      <input class="form-control input-lg" type="text" placeholder="姓名">
+                    </div>
+                    <div class="col-md-3">
+                      <input class="form-control input-lg" type="date" >
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="col-md-8">
+                            <button type="button" class="btn btn-primary" onclick="do_search()">查询</button>
+                            <button type="button" class="btn btn-primary">重置</button>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-default btn-block" style="background-color:#5D8CAE;">签到历史</button>
+                    <table id="info" class="table table-bordered">
+                    <tr>
+                        <td>编号</td>
+                        <td>班级</td>
+                        <td>姓名</td>
+                        <td>阶段</td>
+                        <td>进度</td>
+                        <td>代码数</td>
+                        <td>BUG数</td>
+                        <td>时间</td>
+                        <td>备注</td>
+                    </tr>
+
+        </div>
+
+{% endblock %}
+
+{% block script %}
+ <script>
+{#    页面加载即执行这个函数#}
+    $(function(){
+            init_data()
+    })
+
+    function init_data(){
+        var csrftoken=$("meta[name=csrf-token]").attr("content");
+        console.log(csrftoken)
+        $.ajax({
+            url:"/qd/search_qd/",
+            method:"POST",
+            headers:{"X-CSRFToken":csrftoken},
+            success:function(e){
+                for(var i =0;i<e["qd"].length;i++){
+                    var qd=e["qd"][i]
+                    info = '<tr><td>' +(i+1)  + '</td><td>' + qd['cname'] + '</td><td>' + qd['uname'] + '</td><td>' + qd['stage'] + '</td><td>' + qd['progress'] + '</td><td>' + qd['code_num'] + '</td><td>' + qd['bug_num'] + '</td><td>' + qd['create_time'] + '</td><td>' + qd['remarks'] + '</td></tr>'
+                        $("table").append(info)
+                }
+            }
+        })
+    }
+
+</script>
+{% endblock %}
