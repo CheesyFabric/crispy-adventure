@@ -28,6 +28,7 @@ def login():
                 session["uname"] = uname
                 session["clazz"] = user.clazzs[0].name
                 session["gender"] = user.gender
+                session['role']=user.role
                 # 如果密码正确
                 return redirect(url_for("home"), code=301)
             # 如果密码不正确
@@ -82,3 +83,20 @@ def home():
 def signout():
     session.clear()
     return redirect(url_for("stu.login"))
+
+@stu.route("/info/",endpoint="info", methods=["GET", "POST"])
+@login_validate
+def info():
+    user = User.query.filter_by(id=session["uid"]).first()
+    if request.method=="GET":
+
+        return render_template("info/info.html",user=user)
+    if request.method=="POST":
+
+        # 修改个人信息 提交数据库
+        user.nick_name=request.form.get("nick_name")
+        user.phone=request.form.get("phone")
+        # user.gender=user
+        user.clazzs[0].name=request.form.get("clazz")
+
+        db.session.commit()

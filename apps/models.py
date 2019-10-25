@@ -23,6 +23,7 @@ class User(db.Model):
     role = db.Column(db.Integer)
     gender = db.Column(db.Integer)
     _password = db.Column(db.String(500), nullable=False)
+    phone=db.Column(db.String(11))
 
     clazzs = db.relationship("Clazz", backref="users", secondary=user_clazz)
 
@@ -64,6 +65,7 @@ class Qd(db.Model):
     __tablename__ = "t_qd"
     id = db.Column(db.INTEGER, primary_key=True, autoincrement=True)
     uid=db.Column(db.INTEGER,db.ForeignKey("t_user.id"))
+    user=db.relationship("User")
     # 阶段
     stage = db.Column(db.String(32))
     # 进度

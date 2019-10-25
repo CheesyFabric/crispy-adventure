@@ -1,5 +1,8 @@
 {% extends "common/base.html" %}
 {% block title %}签到主页{% endblock %}
+{% block head %}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+{% endblock %}
 
 {% block container %}
     <!--nav-->
@@ -47,7 +50,7 @@
                 <li class="list-group-item"><input type="text" class="form-control search-query" placeholder="Search Something"></li>
                 <li class="list-group-item"><a href="{{ url_for('home') }}"><i class="glyphicon glyphicon-home"></i>主页 </a></li>
                 <li class="list-group-item"><a href="{{ url_for('qd.qd') }}"><i class="glyphicon glyphicon-certificate"></i>签到 </a></li>
-                <li class="list-group-item"><a href="list.html"><i class="glyphicon glyphicon-th-list"></i>Tables and List </a></li>
+                <li class="list-group-item"><a href="{{ url_for('stu.info') }}"><i class="glyphicon glyphicon-th-list"></i>个人信息 </a></li>
                 <li class="list-group-item"><a href="forms.html"><i class="glyphicon glyphicon-list-alt"></i>Forms</a></li>
                 <li class="list-group-item"><a href="alerts.html"><i class="glyphicon glyphicon-bell"></i>Alerts</a></li>
                 <li class="list-group-item"><a href="timeline.html" ><i class="glyphicon glyphicon-indent-left"></i>Timeline</a></li>
@@ -92,6 +95,7 @@
               <div class="panel-heading">
                 <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> {% block panel_title %}签到主页{% endblock %}</h3>
               </div>
+
 
              <div class="content-row">
 
