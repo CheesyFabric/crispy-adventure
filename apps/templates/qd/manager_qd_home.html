@@ -1,4 +1,4 @@
-{% extends 'common/index_base.html' %}
+{% extends 'common/index.html' %}
 
 {% block title %}签到主页{% endblock %}
 
@@ -8,29 +8,39 @@
 
 {% block panel_title %}签到主页{% endblock %}
 
+{% block side_panel %}
+    {% if session['role']==0 %}
+        <li class="list-group-item"><a href="{{ url_for('clazz.clazz_management') }}"><i class="glyphicon glyphicon-list-alt"></i>班级管理</a></li>
+        <li class="list-group-item"><a href="{{ url_for('stu.user_management') }}"><i class="glyphicon glyphicon-bell"></i>用户管理</a></li>
+    {% endif %}
+{% endblock %}
+
 {% block panel_body %}
 
         <div class="content-row">
 
-
+            <form >
                     <div class="col-md-3">
-                      <input class="form-control input-lg" type="text" placeholder="班级">
+                      <input name="cname" class="form-control " type="text" placeholder="班级">
                     </div>
                     <div class="col-md-3">
-                      <input class="form-control input-lg" type="text" placeholder="姓名">
+                      <input name="nick_name" class="form-control " type="text" placeholder="姓名">
                     </div>
                     <div class="col-md-3">
-                      <input class="form-control input-lg" type="date" >
+                      <input name="create_time" class="form-control " type="date" >
                     </div>
-
+            </form>
                     <div class="col-md-3">
                         <div class="col-md-8">
                             <button type="button" class="btn btn-primary" onclick="do_search()">查询</button>
-                            <button type="button" class="btn btn-primary">重置</button>
+                            <button type="button" class="btn btn-primary" onclick="reset()">重置</button>
                         </div>
                     </div>
-
+        </div>
+    <br>
+                    <div class="content-row">
                     <button type="button" class="btn btn-default btn-block" style="background-color:#5D8CAE;">签到历史</button>
+
                     <table id="info" class="table table-bordered">
                     <tr>
                         <td>编号</td>
@@ -43,7 +53,7 @@
                         <td>时间</td>
                         <td>备注</td>
                     </tr>
-
+                    </table>
         </div>
 
 {% endblock %}
@@ -62,7 +72,9 @@
             url:"/qd/search_qd/",
             method:"POST",
             headers:{"X-CSRFToken":csrftoken},
+            {# e是 return 回来的{"qd":qds} #}
             success:function(e){
+                {# 展示所有的签到数据 #}
                 for(var i =0;i<e["qd"].length;i++){
                     var qd=e["qd"][i]
                     info = '<tr><td>' +(i+1)  + '</td><td>' + qd['cname'] + '</td><td>' + qd['uname'] + '</td><td>' + qd['stage'] + '</td><td>' + qd['progress'] + '</td><td>' + qd['code_num'] + '</td><td>' + qd['bug_num'] + '</td><td>' + qd['create_time'] + '</td><td>' + qd['remarks'] + '</td></tr>'
@@ -72,5 +84,34 @@
         })
     }
 
+    function do_search(){
+        var csrftoken=$("meta[name=csrf-token]").attr("content");
+        data=$('form').serialize();
+        $.ajax({
+            url:"/qd/search_qd/",
+            method:"POST",
+            data:data,
+            headers:{"X-CSRFToken":csrftoken},
+            success:function(e){
+                {#让条件查询得到的结果显示出来 并且 原来的所有签到数据不显示#}
+                {# 也就是说 只显示表头就可以了 #}
+                title='<tr><td>编号</td><td>班级</td><td>姓名</td><td>阶段</td><td>进度</td><td>代码数</td><td>BUG数</td><td>时间</td><td>备注</td></tr>'
+                $('table').html(title)
+
+                for(var i =0;i<e["qd"].length;i++){
+                    var qd=e["qd"][i]
+                    info = '<tr><td>' +(i+1)  + '</td><td>' + qd['cname'] + '</td><td>' + qd['uname'] + '</td><td>' + qd['stage'] + '</td><td>' + qd['progress'] + '</td><td>' + qd['code_num'] + '</td><td>' + qd['bug_num'] + '</td><td>' + qd['create_time'] + '</td><td>' + qd['remarks'] + '</td></tr>'
+                        $("table").append(info)
+                }
+            }
+        })
+
+    }
+
+ function reset(){
+        $('input[name=cname]').val('')
+        $('input[name=nick_name]').val('')
+        $('input[name=create_time]').val('')
+ }
 </script>
 {% endblock %}

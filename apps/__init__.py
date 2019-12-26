@@ -9,9 +9,11 @@ app.config.from_object(config)
 # 导入stu蓝图对象
 from apps.stu import stu
 from apps.qd import qd
+from apps.clazz import clazz
 # 注册蓝图 相当于把stu蓝图对象和app对象绑定 这样app初始化是蓝图对象也可以初始化
 app.register_blueprint(stu)
 app.register_blueprint(qd)
+app.register_blueprint(clazz)
 
 from apps import filter
 from apps.decorator import login_validate

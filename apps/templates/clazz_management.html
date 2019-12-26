@@ -1,0 +1,98 @@
+{% extends 'common/index.html' %}
+
+{% block title %}班级管理{% endblock %}
+
+{% block head %}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+{% endblock %}
+
+{% block panel_title %}班级管理{% endblock %}
+
+{% block side_panel %}
+    {% if session['role']==0 %}
+        <li class="list-group-item"><a href="{{ url_for('clazz.clazz_management') }}"><i class="glyphicon glyphicon-list-alt"></i>班级管理</a></li>
+        <li class="list-group-item"><a href="{{ url_for('stu.user_management') }}"><i class="glyphicon glyphicon-bell"></i>用户管理</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block panel_body %}
+
+            <div class="content-row">
+                <form action="/clazz/clazz_management/" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <div class="col-md-6">
+                      <input name="cname" class="form-control " type="text" placeholder="班级">
+                </div>
+
+                <div class="col-md-1">
+
+                    <input class="btn btn-primary" type="submit" value="查询">
+                </div>
+                </form>
+                <div class="col-md-1">
+
+                        <button type="button" class="btn btn-primary" onclick="add_clazzs()">添加班级</button>
+                </div>
+
+            </div>
+
+                    <br>
+
+
+            <div class="content-row">
+
+                    <button type="button" class="btn btn-default btn-block" style="background-color:#5D8CAE;">班级信息</button>
+
+                    <table id="info" class="table table-bordered">
+                    <tr>
+                        <td>编号</td>
+                        <td>班级</td>
+                        <td>人数</td>
+                        <td>操作</td>
+                    </tr>
+               {% for clazz in clazzs %}
+                   <form action="/clazz/change_clazz_info/" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td><input name="clazz_name" type="text" class="form-control stepper-input" value="{{ clazz.name }}" ></td>
+                        <td><input name="clazz_count" type="text" class="form-control stepper-input" value="{{ clazz.count }}" ></td>
+                        <td hidden><input name="clazz_id" type="text" class="form-control stepper-input" value="{{ clazz.id }}" ></td>
+                        <td>
+                            <input class="btn btn-primary" type="submit" value="提交">
+                        </td>
+                    </tr>
+                   </form>
+               {% endfor %}
+
+                    </table>
+
+                <form id ="ab"></form>
+            </div>
+{% endblock %}
+
+{% block script %}
+ <script>
+    var i = 0
+    function add_clazzs(){
+         i += 1
+        var csrftoken=$("meta[name=csrf-token]").attr("content");
+
+        var info='<tr><input type="hidden" name="csrf_token" value="'+csrftoken+' "/><td><input type="text" class="form-control stepper-input" value="" readonly></td><td><input id="cname'+i+'" name="clazz_name" type="text" class="form-control stepper-input" value="" ></td><td><input id="count'+i+'" name="clazz_count" type="text" class="form-control stepper-input" value="" ></td><td><button class="btn btn-primary" type="button" onclick="submit_clazz()">提交</button></td></tr>'
+        $("table").append(info)
+    }
+    function submit_clazz(){
+
+        cname_id="cname"+i
+        count_id="count"+i
+        cname=document.getElementById(cname_id).value
+        count=document.getElementById(count_id).value
+        {#console.log(cname)#}
+        {#console.log(count)#}
+        window.location.href="/clazz/change_clazz_info/?clazz_name="+cname+"&clazz_count="+count
+
+    }
+
+</script>
+{% endblock %}
+

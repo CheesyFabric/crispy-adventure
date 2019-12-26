@@ -1,6 +1,11 @@
 {% extends "common/base.html" %}
 {% block title %}主页{% endblock %}
 
+{% block head %}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+{% endblock %}
+
 {% block container %}
     <!--nav-->
     <nav role="navigation" class="navbar navbar-custom">
@@ -24,7 +29,7 @@
                     <!-- <li class="disabled"><a href="#">Link</a></li> -->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            {% if session["uname"] %}{{ session["uname"] }}{% endif %} <b class="caret"></b></a>
+                            {% if session["nick_name"] %}{{ session["nick_name"] }}{% endif %} <b class="caret"></b></a>
                         <ul role="menu" class="dropdown-menu">
                             <li class="dropdown-header">Setting</li>
                             <li><a href="#">Action</a></li>
@@ -52,8 +57,10 @@
                     </li>
                     <li class="list-group-item"><a href="{{ url_for('qd.qd') }}"><i class="glyphicon glyphicon-certificate"></i>签到
                     </a></li>
-                    <li class="list-group-item"><a href="{{ url_for('stu.info') }}"><i
-                            class="glyphicon glyphicon-th-list"></i>个人信息 </a></li>
+                    <li class="list-group-item"><a href="{{ url_for('stu.info') }}"><i class="glyphicon glyphicon-th-list"></i>个人信息 </a></li>
+                    <li class="list-group-item"><a href="{{ url_for('qd.data_analysis') }}"><i class="glyphicon glyphicon-th-list"></i>数据分析</a>
+                    </li>
+                    {% block side_panel %}
                     <li class="list-group-item"><a href="forms.html"><i
                             class="glyphicon glyphicon-list-alt"></i>Forms</a></li>
                     <li class="list-group-item"><a href="alerts.html"><i class="glyphicon glyphicon-bell"></i>Alerts</a>
@@ -105,6 +112,8 @@
                         <a href="" class="list-group-item">Subitem 3</a>
                     </li>
                     </li>
+
+                    {% endblock %}
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-9 content">

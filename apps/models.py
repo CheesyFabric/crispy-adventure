@@ -35,6 +35,7 @@ class User(db.Model):
         self.passwd = password
         self.confirm_password = confirm_password
 
+    # 属性私有化
     @property
     def passwd(self):
         return self.passwd
@@ -84,3 +85,13 @@ class Qd(db.Model):
         self.bug_num=bug_num
         self.create_time=create_time
         self.remark=remark
+
+
+
+def add_data():
+    Base.metadata.drop_all()
+    Base.metadata.create_all()
+
+    article1 = Article(title='title1')
+    session.add(article1)
+    session.commit()

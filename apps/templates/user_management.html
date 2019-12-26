@@ -1,0 +1,157 @@
+{% extends 'common/index.html' %}
+
+{% block title %}用户管理{% endblock %}
+
+{% block head %}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+{% endblock %}
+
+{% block panel_title %}用户管理{% endblock %}
+
+{% block side_panel %}
+    {% if session['role']==0 %}
+        <li class="list-group-item"><a href="{{ url_for('clazz.clazz_management') }}"><i class="glyphicon glyphicon-list-alt"></i>班级管理</a></li>
+        <li class="list-group-item"><a href="{{ url_for('stu.user_management') }}"><i class="glyphicon glyphicon-bell"></i>用户管理</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block panel_body %}
+
+        <div class="content-row">
+
+            <form action="{{ url_for('stu.user_management') }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <div class="col-md-3">
+                      <input name="cname" class="form-control " type="text" placeholder="班级">
+                    </div>
+                    <div class="col-md-3">
+                      <input name="nick_name" class="form-control " type="text" placeholder="姓名">
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="col-md-8">
+                            <input type="submit" class="btn btn-primary" value="查询">
+                            <button type="button" class="btn btn-primary" onclick="reset()">重置</button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+
+        <br>
+
+        <div class="content-row">
+
+                    <button type="button" class="btn btn-default btn-block" style="background-color:#5D8CAE;">用户信息</button>
+
+                    <table id="info" class="table table-bordered">
+                    <tr>
+                        <td>编号</td>
+                        <td>用户名</td>
+                        <td>昵称</td>
+                        <td>班级</td>
+                        <td>性别</td>
+                        <td>身份</td>
+                        <td>密码</td>
+                        <td>操作</td>
+                    </tr>
+               {% for stu in stus %}
+                   <form action="{{ url_for('stu.modify_user_info') }}" method="post">
+                   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td > <input  name="uname" class="form-control " type="text" value="{{ stu.uname }}" readonly></td>
+                        <td><input name="nick_name" class="form-control " type="text" value="{{ stu.nick_name }}"></td>
+                        <td>
+                            <select class="form-control input-sm" name="clazz">
+                            {% for clazz in clazzs %}
+                            <option value="{{ clazz.id }}" {% if clazz.name==stu.clazzs[0].name %}selected{% endif %}>{{ clazz.name }}</option>
+                            {% endfor %}
+                            </select>
+
+                        </td>
+                        <td>
+                            <select class="form-control input-sm" name="gender">
+                            <option value="1" {% if stu['gender']==1 %}selected{% endif %}>男</option>
+                            <option value="0" {% if stu['gender']==0 %}selected{% endif %}>女</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control input-sm" name="role">
+                            <option value="0" {% if stu.role==0 %}selected{% endif %}>管理员</option>
+                            <option value="1" {% if stu.role==1 %}selected{% endif %} >学生</option>
+                            </select>
+                        </td>
+
+                            <td><a class="btn btn-primary" href="/user/reset_password?id={{ stu.id }}">重置</a></td>
+
+
+{# 用普通视图函数的写法 #}   <td><input type="submit" class="btn btn-primary" value="确认修改"></td>
+{# 用JS实现                  <button type="button" class="btn btn-primary" onclick="modify_user_info()">确认修改</button>#}
+                        </a>
+                    </tr>
+                   </form>
+               {% endfor %}
+
+                    </table>
+        </div>
+
+{% endblock %}
+
+{% block script %}
+ <script>
+
+{##}
+{#    function init_data(){#}
+{#        var csrftoken=$("meta[name=csrf-token]").attr("content");#}
+{#        console.log(csrftoken)#}
+{#        $.ajax({#}
+{#            url:"/qd/search_qd/",#}
+{#            method:"POST",#}
+{#            headers:{"X-CSRFToken":csrftoken},#}
+            {# e是 return 回来的{"qd":qds} #}
+{#            success:function(e){#}
+                {# 展示所有的签到数据 #}
+{#                for(var i =0;i<e["qd"].length;i++){#}
+{#                    var qd=e["qd"][i]#}
+{#                    info = '<tr><td>' +(i+1)  + '</td><td>' + qd['cname'] + '</td><td>' + qd['uname'] + '</td><td>' + qd['stage'] + '</td><td>' + qd['progress'] + '</td><td>' + qd['code_num'] + '</td><td>' + qd['bug_num'] + '</td><td>' + qd['create_time'] + '</td><td>' + qd['remarks'] + '</td></tr>'#}
+{#                        $("table").append(info)#}
+{#                }#}
+{#            }#}
+{#        })#}
+{#    }#}
+
+    {#function do_search(){#}
+    {#    var csrftoken=$("meta[name=csrf-token]").attr("content");#}
+    {#    data=$('form').serialize();#}
+    {#    $.ajax({#}
+    {#        url:"/qd/search_qd/",#}
+    {#        method:"POST",#}
+    {#        data:data,#}
+    {#        headers:{"X-CSRFToken":csrftoken},#}
+    {#        success:function(e){#}
+                {#让条件查询得到的结果显示出来 并且 原来的所有签到数据不显示#}
+                {# 也就是说 只显示表头就可以了 #}
+    {#            title='<tr><td>编号</td><td>班级</td><td>姓名</td><td>阶段</td><td>进度</td><td>代码数</td><td>BUG数</td><td>时间</td><td>备注</td></tr>'#}
+    {#            $('table').html(title)#}
+    {##}
+    {#            for(var i =0;i<e["qd"].length;i++){#}
+    {#                var qd=e["qd"][i]#}
+    {#                info = '<tr><td>' +(i+1)  + '</td><td>' + qd['cname'] + '</td><td>' + qd['uname'] + '</td><td>' + qd['stage'] + '</td><td>' + qd['progress'] + '</td><td>' + qd['code_num'] + '</td><td>' + qd['bug_num'] + '</td><td>' + qd['create_time'] + '</td><td>' + qd['remarks'] + '</td></tr>'#}
+    {#                    $("table").append(info)#}
+    {#            }#}
+    {#        }#}
+    {#    })#}
+    {##}
+    {#}#}
+function modify_user_info(){
+        var csrftoken=$("meta[name=csrf-token]").attr("content");
+
+}
+
+ function reset(){
+        $('input[name="cname"]').val('');
+        $('input[name="nick_name"]').val('');
+        $('input[name="create_time"]').val('');
+ }
+</script>
+{% endblock %}

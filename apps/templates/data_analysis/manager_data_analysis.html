@@ -1,0 +1,118 @@
+{% extends 'common/index.html' %}
+
+{% block title %}数据分析{% endblock %}
+
+{% block head %}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- 引入 ECharts 文件 -->
+    <script src="/static/echarts/echarts.min.js"></script>
+{% endblock %}
+
+{% block panel_title %}数据分析{% endblock %}
+
+{% block side_panel %}
+    {% if session['role']==0 %}
+        <li class="list-group-item"><a href="{{ url_for('clazz.clazz_management') }}"><i class="glyphicon glyphicon-list-alt"></i>班级管理</a></li>
+        <li class="list-group-item"><a href="{{ url_for('stu.user_management') }}"><i class="glyphicon glyphicon-bell"></i>用户管理</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block panel_body %}
+
+        <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="height:600px;"></div>
+{% endblock  %}
+
+
+{% block script %}
+
+    <script type="text/javascript">
+{#    页面加载完成执行的方法     等同于 $(document).ready(function(){  }); #}
+        $(function(){
+            init_data()
+        })
+
+        function init_data(){
+            var csrftoken = $("meta[name=csrf-token]").attr("content");
+        {#  因为ajax是异步强求，需要先设置变量以加载图表的框架  #}
+
+            var user =''
+            var code_num=''
+            var data =''
+
+            $.ajax({
+
+                url:'/qd/data_analysis/',
+                headers:{'X-CSRFToken':csrftoken},
+                type:'POST',
+                success:function(rs){
+                    {#console.log(rs.user)#}
+                    {#console.log(rs.code_num)#}
+                    {#console.log(rs.data)#}
+                    user = rs.user
+                    code_num = rs.code_num
+                    data = rs.data
+
+
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '学员代码量分析'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:user
+            },
+
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+
+                data: data
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:user[0],
+                    type:'line',
+                    smooth: true,
+                    data:code_num[0]
+                },
+                {
+                    name:user[1],
+                    type:'line',
+                    smooth: true,
+                    data:code_num[1]
+                }
+            ]
+        };
+
+
+
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+
+                }
+
+
+            })
+
+        }
+
+    </script>
+{% endblock %}
