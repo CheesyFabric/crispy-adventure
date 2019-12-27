@@ -3,22 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="54b7b384-8028-4716-bcce-7fde06bb12b3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/qd/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/qd/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/static/dist/js/site.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/static/dist/js/site.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/stu/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/stu/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/common/index_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/common/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/info/info.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/info/info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/qd/manager_qd_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/qd/manager_qd_home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/qd/qd_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/qd/qd_home.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="brandnew_project" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -43,7 +36,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/templates/data_analysis/manager_data_analysis.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
+            <state relative-caret-position="-6">
               <caret line="43" selection-start-line="43" selection-end-line="43" />
               <folding>
                 <element signature="e#748#769#0#HTML" expanded="true" />
@@ -169,10 +162,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="width" value="966" />
-    <option name="height" value="780" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="812" />
+    <option name="y" value="3" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -470,7 +464,7 @@
       <workItem from="1573703363063" duration="31000" />
       <workItem from="1574298745255" duration="21677000" />
       <workItem from="1574383161950" duration="11750000" />
-      <workItem from="1577348243596" duration="541000" />
+      <workItem from="1577348243596" duration="4951000" />
     </task>
     <task id="LOCAL-00001" summary="manager_qd_home.html">
       <created>1571966474820</created>
@@ -483,7 +477,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="326021000" />
+    <option name="totallyTimeSpent" value="330431000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -495,24 +489,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="953" y="0" width="974" height="1047" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1913646" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.37089714" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.46316963" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.19956616" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.1735358" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32589287" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.45424107" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.23883928" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.35044643" />
+      <window_info anchor="bottom" id="Favorites" order="6" weight="0.3293919" />
+      <window_info anchor="bottom" id="TODO" order="7" weight="0.32589287" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.45424107" />
+      <window_info anchor="bottom" id="Database Changes" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="12" visible="true" weight="0.032858707" />
+      <window_info anchor="bottom" id="Python Console" order="13" weight="0.35044643" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1008,7 +1003,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/templates/data_analysis/manager_data_analysis.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
+        <state relative-caret-position="-6">
           <caret line="43" selection-start-line="43" selection-end-line="43" />
           <folding>
             <element signature="e#748#769#0#HTML" expanded="true" />
